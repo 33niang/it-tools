@@ -30,14 +30,13 @@ const tools = computed<ToolCategory[]>(() => [
   ...toolsByCategory.value,
 ])
 
-// --- 为网站运行时间添加的代码 ---
+// --- 网站运行时间代码 ---
 let timer: number | undefined
 
 function updateSiteRuntime() {
   const siteRuntimeElement = document.getElementById('site-runtime')
   if (siteRuntimeElement) {
-    // !!!重要!!! 请在这里设置你的网站上线日期和时间
-    const startDate = new Date('2025-08-28T00:00:00')
+    const startDate = new Date('2025-08-28T00:00:00') // 你的网站上线日期
     const currentDate = new Date()
     const diff = currentDate.getTime() - startDate.getTime()
 
@@ -66,7 +65,7 @@ onUnmounted(() => {
         <HeroGradient class="gradient" />
         <div class="text-wrapper">
           <div class="title">
-            ZHOU.SU TOOLS
+            IT - TOOLS
           </div>
           <div class="divider" />
           <div class="subtitle">
@@ -88,7 +87,7 @@ onUnmounted(() => {
 
         <footer class="footer">
           <div>
-            &copy; {{ new Date().getFullYear() }} zhou.su | This site is based on
+            &copy; {{ new Date().getFullYear() }} sansan | This site is based on
             <a href="https://github.com/CorentinTh/it-tools" target="_blank" class="text-indigo-400 hover:underline">it-tools</a> by Corentin Thiercelin,
             licensed under MIT.
           </div>
