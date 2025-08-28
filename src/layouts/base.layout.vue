@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { NIcon, useThemeVars } from 'naive-ui';
-
+// 在这里从 'vue' 导入 onMounted 和 onUnmounted
+import { computed, onMounted, onUnmounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { Heart, Home2, Menu2 } from '@vicons/tabler';
 
@@ -14,6 +15,7 @@ import type { ToolCategory } from '@/tools/tools.types';
 import { useToolStore } from '@/tools/tools.store';
 import { useTracker } from '@/modules/tracker/tracker.services';
 import CollapsibleToolMenu from '@/components/CollapsibleToolMenu.vue';
+import LocaleSelector from '@/modules/i18n/components/locale-selector.vue';
 
 const themeVars = useThemeVars();
 const styleStore = useStyleStore();
@@ -30,6 +32,38 @@ const tools = computed<ToolCategory[]>(() => [
   ...(favoriteTools.value.length > 0 ? [{ name: t('tools.categories.favorite-tools'), components: favoriteTools.value }] : []),
   ...toolsByCategory.value,
 ]);
+
+// --- 为网站运行时间添加的代码 ---
+let timer: number | undefined;
+
+// 这个函数用来计算并更新运行时间
+function updateSiteRuntime() {
+  const siteRuntimeElement = document.getElementById('site-runtime');
+  if (siteRuntimeElement) {
+    // !!!重要!!! 请在这里设置你的网站上线日期和时间
+    const startDate = new Date('2025-08-27T00:00:00'); 
+    const currentDate = new Date();
+    const diff = currentDate.getTime() - startDate.getTime();
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    siteRuntimeElement.innerHTML = `本站已稳定运行: ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒`;
+  }
+}
+
+onMounted(() => {
+  // 在组件挂载后，每秒更新一次时间
+  timer = window.setInterval(updateSiteRuntime, 1000);
+});
+
+onUnmounted(() => {
+  // 在组件卸载前，清除定时器
+  clearInterval(timer);
+});
+// --- 添加结束 ---
 </script>
 
 <template>
@@ -59,33 +93,15 @@ const tools = computed<ToolCategory[]>(() => [
 
         <CollapsibleToolMenu :tools-by-category="tools" />
 
-        <div class="footer">
-          <div>
-            IT-Tools
-
-            <c-link target="_blank" rel="noopener" :href="`https://github.com/CorentinTh/it-tools/tree/v${version}`">
-              v{{ version }}
-            </c-link>
-
-            <template v-if="commitSha && commitSha.length > 0">
-              -
-              <c-link
-                target="_blank"
-                rel="noopener"
-                type="primary"
-                :href="`https://github.com/CorentinTh/it-tools/tree/${commitSha}`"
-              >
-                {{ commitSha }}
-              </c-link>
-            </template>
-          </div>
-          <div>
-            © {{ new Date().getFullYear() }}
-            <c-link target="_blank" rel="noopener" href="https://corentin.tech?utm_source=it-tools&utm_medium=footer">
-              Corentin Thomasset
-            </c-link>
-          </div>
-        </div>
+        <footer class="footer">
+            <div>
+                &copy; {{ new Date().getFullYear() }} zhou.su | This site is a modified version based on 
+                <a href="https://github.com/CorentinTh/it-tools" target="_blank" class="text-indigo-400 hover:underline">it-tools</a> by Corentin Thiercelin,
+                licensed under MIT.
+            </div>
+            
+            <div id="site-runtime"></div>
+        </footer>
       </div>
     </template>
 
@@ -142,14 +158,14 @@ const tools = computed<ToolCategory[]>(() => [
 
 <style lang="less" scoped>
 // ::v-deep(.n-layout-scroll-container) {
-//     @percent: 4%;
-//     @position: 25px;
-//     @size: 50px;
-//     @color: #eeeeee25;
-//     background-image: radial-gradient(@color @percent, transparent @percent),
-//         radial-gradient(@color @percent, transparent @percent);
-//     background-position: 0 0, @position @position;
-//     background-size: @size @size;
+//   @percent: 4%;
+//   @position: 25px;
+//   @size: 50px;
+//   @color: #eeeeee25;
+//   background-image: radial-gradient(@color @percent, transparent @percent),
+//     radial-gradient(@color @percent, transparent @percent);
+//   background-position: 0 0, @position @position;
+//   background-size: @size @size;
 // }
 
 .support-button {
