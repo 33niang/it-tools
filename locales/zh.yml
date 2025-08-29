@@ -10,7 +10,7 @@ home:
   uiLib: 'UI 库'
   support: '支持 IT 工具开发'
   buyMeACoffee: '赞助'
-  github: 'GitHub' # <-- 为了统一，我把这里也改成了GitHub
+  github: 'GitHub'
   follow:
     title: '关注我们'
     p1: '给我们 Star'
@@ -58,13 +58,40 @@ toolCard:
 search:
   label: '搜索'
 tools:
-  # ... (你提供的所有tools翻译，这里省略以保持简洁)
-  # ...
-  text-to-binary:
-    title: 文本到 ASCII 二进制
-    description: 将文本转换为其 ASCII 二进制表示形式，反之亦然。
-
-# --- [新增部分] ---
-navbar:
-  status_page: '状态监控'
-  navigation_home: '导航主页'
+  categories:
+    favorite-tools: '我的收藏'
+    crypto: '加密'
+    converter: '转换器'
+    web: Web
+    images and videos: '图片和视频'
+    development: '开发'
+    network: '网络'
+    math: '数学'
+    measurement: '测量'
+    text: '文本'
+    data: '数据'
+  password-strength-analyser:
+    title: 密码强度分析仪
+    description: 使用此密码强度分析器和破解时间估计工具来发现密码的强度。
+  chronometer:
+    title: 计时器
+    description: 监控事物的持续时间。基本上是一种具有简单计时器功能的计时器。
+  token-generator:
+    title: Token 生成器
+    description: 使用您想要的字符、大写或小写字母、数字和/或符号生成随机字符串。
+    uppercase: '大写 (ABC...)'
+    lowercase: '小写 (abc...)'
+    numbers: '数字 (123...)'
+    symbols: '符号 (!-;...)'
+    length: '长度'
+    tokenPlaceholder: '令牌...'
+    copied: 复制到剪贴板
+    button:
+      copy: 复制
+      refresh: 刷新
+  percentage-calculator:
+    title: 百分比计算器
+    description: 轻松计算从一个值到另一个值的百分比，或从百分比到值的百分比。
+  svg-placeholder-generator:
+    title: SVG 占位符生成器
+    description:
