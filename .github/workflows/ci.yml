@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@v4
       - run: corepack enable
       - uses: actions/setup-node@v3
         with:
@@ -21,7 +21,20 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Run linters
+      # 步骤 1: 运行 linter 并自动修复代码风格问题
+      - name: Run linters and auto-fix
+        run: pnpm lint --fix
+
+      # 步骤 2: 如果有文件被修复, 自动将修改提交回您的仓库
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: auto-fix linting issues"
+          # 您可以指定只检查特定目录下的文件变更
+          file_pattern: "src/**/*.vue src/**/*.ts"
+
+      # 步骤 3 (可选): 再次检查, 确保所有问题都已修复
+      - name: Verify linting
         run: pnpm lint
 
       - name: Run unit test
