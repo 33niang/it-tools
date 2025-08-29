@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { NIcon } from 'naive-ui'
-import { BrandGithub, Moon, Sun, Compass, ActivityHeartbeat } from '@vicons/tabler'
-import { useStyleStore } from '@/stores/style.store'
-import { config } from '@/config'
+import { NIcon } from 'naive-ui';
+import { ActivityHeartbeat, BrandGithub, Compass, Moon, Sun } from '@vicons/tabler';
+import { useStyleStore } from '@/stores/style.store';
+import { config } from '@/config';
 
-const styleStore = useStyleStore()
-const { t } = useI18n()
+const styleStore = useStyleStore();
+const { t } = useI18n();
 </script>
 
 <template>
