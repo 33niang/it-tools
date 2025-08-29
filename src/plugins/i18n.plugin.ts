@@ -25,8 +25,9 @@ export const i18nPlugin = {
 
 // 这是其他工具文件需要的 translate 辅助函数 (保留)
 export function translate(key: string) {
-  if (!key)
+  if (!key) {
     return ''
+  }
 
   return i18n.global.t(key)
 }
